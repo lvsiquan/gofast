@@ -17,7 +17,7 @@ func BenchmarkNewDispatcher(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		job := Job{Payload: "job" + strconv.Itoa(i)}
-		JobQueue <- job
+		d.JobQueue <- job
 	}
 
 }
