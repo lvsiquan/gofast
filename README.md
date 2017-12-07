@@ -17,6 +17,6 @@ for i := 0; i < 100; i++ {
  ```
  
  # Benchmark
- > BenchmarkNewDispatcher-4          300000              7291 ns/op             622 B/op          5 allocs/op 
+ > BenchmarkNewDispatcher-8   	  500000	      4499 ns/op	     557 B/op	       4 allocs/op
 PASS
-ok      github.com/gofast       2.878s
+ok  	github.com/lvsiquan/gofast	2.412s
