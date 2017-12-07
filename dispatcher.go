@@ -9,11 +9,12 @@ import (
 var MaxWorker = os.Getenv("MAX_WORKER")
 var MaxQueue = os.Getenv("MAX_QUEUE")
 
-var JobQueue = make(chan Job)
+// var JobQueue = make(chan Job)
 
 type Dispatcher struct {
 	WorkerPool chan chan Job
 	MaxWorker  int
+	JobQueue   chan Job
 	quit       chan bool
 }
 
@@ -23,7 +24,7 @@ func NewDispatcher() *Dispatcher {
 		maxWorker = runtime.NumCPU()
 	}
 	pool := make(chan chan Job, maxWorker)
-	return &Dispatcher{WorkerPool: pool, MaxWorker: maxWorker, quit: make(chan bool)}
+	return &Dispatcher{WorkerPool: pool, MaxWorker: maxWorker, quit: make(chan bool), JobQueue: make(chan Job)}
 }
 
 func (d *Dispatcher) Run(handler JobHandler) {
@@ -38,7 +39,7 @@ func (d *Dispatcher) Run(handler JobHandler) {
 func (d *Dispatcher) dispatch() {
 	for {
 		select {
-		case job := <-JobQueue:
+		case job := <-d.JobQueue:
 			go func(job Job) {
 				jobChan := <-d.WorkerPool
 				jobChan <- job
