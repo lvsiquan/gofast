@@ -11,7 +11,7 @@ d.Run(func(job Job) { time.Sleep(1 * time.Second) })
 
 for i := 0; i < 100; i++ {
 	job := Job{Payload: "job" + strconv.Itoa(i)}
-	JobQueue <- job
+	d.JobQueue <- job
 }
   
  ```
