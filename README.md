@@ -1,5 +1,5 @@
 # gofast
-A worker pool written by Golang
+A worker pool written in Golang
 
 # Usage
 ```
